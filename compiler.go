@@ -14,8 +14,12 @@ func main() {
 	flag.Parse()
 	inputPaths := flag.Args()
 
-	inputManifest := matrix.NewInputManifest(inputPaths, *outputDir)
+	inputManifest := matrix.NewManifest(inputPaths, *outputDir)
 	if err := inputManifest.ScanInputDirs(); err != nil {
-		fmt.Printf("Error: %s", err.Error())
+		fmt.Printf("Error: %s\n", err.Error())
+	}
+
+	if err := inputManifest.EvaluateDirectives(); err != nil {
+		fmt.Printf("Error: %s\n", err.Error())
 	}
 }
